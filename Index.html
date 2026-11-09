@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#07152f">
+<title>Desafio dos Dados — SENAI</title>
+<style>
+:root{--bg:#071225;--panel:#101f3c;--panel2:#14294d;--blue:#35c5ff;--gold:#ffd166;--green:#35d39a;--red:#ff667a;--text:#f4f8ff;--muted:#b7c6dc}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(circle at 50% 0%,#17386b 0,#09162d 42%,#050b18 100%);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--text);display:flex;justify-content:center;padding:22px 14px}
+.app{width:min(760px,100%)}header{text-align:center;margin:8px 0 20px} .brand{display:inline-flex;align-items:center;gap:9px;color:var(--blue);font-weight:900;letter-spacing:2px;font-size:.82rem}.brand span{background:#13294b;border:1px solid #28517d;border-radius:9px;padding:7px 11px}.brand b{color:#fff}.eyebrow{color:var(--gold);font-size:.78rem;font-weight:800;letter-spacing:2px;margin:18px 0 6px}h1{font-size:clamp(2rem,7vw,3.3rem);line-height:1.05;margin:0;text-shadow:0 5px 24px #0008}h1 em{font-style:normal;color:var(--blue)}.subtitle{color:var(--muted);margin:12px auto 0;max-width:520px;line-height:1.5}
+.card{background:linear-gradient(145deg,#13284aee,#0d1a32f5);border:1px solid #31517a;border-radius:22px;padding:clamp(18px,4vw,30px);box-shadow:0 18px 55px #0006}
+.screen{display:none}.screen.active{display:block}.start-art{font-size:4.4rem;text-align:center;margin:6px 0 10px;filter:drop-shadow(0 8px 12px #0008)}.features{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:22px 0}.feature{background:#0a1830;border:1px solid #29466b;border-radius:13px;padding:12px 8px;text-align:center;color:var(--muted);font-size:.83rem}.feature strong{display:block;color:var(--text);font-size:1rem;margin-bottom:3px}
+button{font:inherit;cursor:pointer;border:0;border-radius:13px;padding:14px 17px;font-weight:800;transition:transform .15s,filter .15s}button:hover{filter:brightness(1.1);transform:translateY(-1px)}button:focus-visible{outline:3px solid white;outline-offset:3px}.primary{width:100%;background:linear-gradient(90deg,#0877e8,#14b7ed);color:white;font-size:1.05rem;box-shadow:0 8px 24px #0789df55}.secondary{background:#203958;color:#e9f4ff;border:1px solid #3a5d83}.small{padding:9px 12px;font-size:.86rem}.topline{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:17px}.pill{background:#08172d;border:1px solid #2b4c72;border-radius:999px;padding:8px 12px;color:var(--muted);font-size:.84rem}.pill b{color:var(--gold)}.progress{height:9px;background:#071225;border-radius:99px;overflow:hidden;margin:10px 0 22px}.progress div{height:100%;background:linear-gradient(90deg,var(--blue),#8be5ff);width:0;transition:width .25s}
+.question-label{color:var(--blue);font-weight:900;font-size:.8rem;letter-spacing:1.5px;text-transform:uppercase}.question{font-size:clamp(1.2rem,4vw,1.65rem);line-height:1.35;margin:10px 0 20px}.answers{display:grid;grid-template-columns:1fr 1fr;gap:11px}.answer{background:#172d50;border:1px solid #3a5a80;color:white;text-align:left;min-height:66px;display:flex;align-items:center;gap:11px}.answer .letter{flex:0 0 30px;height:30px;border-radius:9px;background:#0b1c35;color:var(--blue);display:grid;place-items:center;font-weight:900}.answer.correct{border:2px solid var(--green);background:#103d3a}.answer.wrong{border:2px solid var(--red);background:#482337}.answer:disabled{cursor:default;transform:none;opacity:1}.feedback{min-height:52px;margin:15px 0 4px;padding:12px 14px;border-radius:12px;background:#0a1930;color:var(--muted);line-height:1.4}.feedback.good{background:#10352f;color:#b8f5dd}.feedback.bad{background:#40212c;color:#ffd1d8}.next-row{display:flex;gap:10px;margin-top:12px}.next-row button{flex:1}.lifelines{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px}.lifelines button{flex:1;min-width:130px}.prize-list{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:20px 0}.prize{background:#0b1a31;border:1px solid #274568;border-radius:10px;padding:9px 11px;color:#aebfd5;font-size:.88rem;display:flex;justify-content:space-between}.prize.current{border-color:var(--gold);color:var(--gold);background:#352d1a}.prize.passed{color:#71ddb8;border-color:#286a5b}.result{text-align:center}.result .medal{font-size:4.5rem;margin:4px}.result h2{font-size:2rem;margin:5px}.result p{color:var(--muted);line-height:1.6}.result .amount{font-size:2.3rem;color:var(--gold);font-weight:950;margin:12px}.foot{text-align:center;color:#8298b7;font-size:.78rem;margin:18px 0 4px}
+@media(max-width:520px){.answers{grid-template-columns:1fr}.features{grid-template-columns:1fr 1fr 1fr}.feature{font-size:.74rem}.prize-list{grid-template-columns:1fr 1fr}.card{border-radius:18px}}
+</style>
+</head>
+<body>
+<main class="app">
+<header><div class="brand"><span>SENAI</span><b>GAME DEV • TRATAMENTO E GERENCIAMENTO DE DADOS</b></div><div class="eyebrow">EDIÇÃO ESPECIAL</div><h1>DESAFIO <em>DOS DADOS</em></h1><p class="subtitle">Pense rápido, interprete informações e avance rumo ao prêmio de R$ 1 milhão!</p></header>
+<section id="start" class="card screen active">
+  <div class="start-art">🏆</div>
+  <h2 style="text-align:center;margin:0">Você está preparado?</h2>
+  <p style="text-align:center;color:var(--muted);line-height:1.55">Responda 10 perguntas sobre planilhas, organização, gráficos e estatística. Cada resposta correta aumenta seu prêmio.</p>
+  <div class="features"><div class="feature"><strong>🔟 10 fases</strong>Perguntas</div><div class="feature"><strong>💡 2 ajudas</strong>Universitários e 50/50</div><div class="feature"><strong>💰 R$ 1 milhão</strong>Prêmio máximo</div></div>
+  <button class="primary" id="startBtn">COMEÇAR O JOGO ▶</button>
+  <p class="foot">Jogo educativo • Valores fictícios • Feito para o SENAI</p>
+</section>
+<section id="game" class="card screen">
+ <div class="topline"><span class="pill">PERGUNTA <b id="qNum">1/10</b></span><span class="pill">PRÊMIO ATUAL <b id="currentMoney">R$ 0</b></span></div>
+ <div class="progress"><div id="bar"></div></div>
+ <div class="question-label" id="category">ORGANIZAÇÃO DE DADOS</div>
+ <h2 class="question" id="question"></h2>
+ <div class="answers" id="answers"></div>
+ <div id="feedback" class="feedback" aria-live="polite">Escolha uma alternativa para responder.</div>
+ <div class="lifelines"><button class="secondary small" id="fiftyBtn">✂️ Ajuda 50/50</button><button class="secondary small" id="audienceBtn">👥 Opinião da turma</button><button class="secondary small" id="quitBtn">Sair com o prêmio</button></div>
+ <div class="next-row"><button class="primary" id="nextBtn" style="display:none">PRÓXIMA PERGUNTA →</button></div>
+ <div class="prize-list" id="prizes"></div>
+</section>
+<section id="result" class="card screen result">
+ <div class="medal" id="resultIcon">🏆</div><h2 id="resultTitle">Parabéns!</h2><p id="resultText"></p><div class="amount" id="finalMoney">R$ 1.000.000</div>
+ <button class="primary" id="restartBtn">JOGAR NOVAMENTE ↻</button>
+ <p class="foot">Continue aprendendo: dados bem tratados ajudam a tomar decisões melhores!</p>
+</section>
+<footer class="foot">DESAFIO DOS DADOS • SENAI AFONSO PENA</footer>
+</main>
+<script>
+const questions=[
+{cat:"Organização de dados",q:"Qual é a principal vantagem de organizar informações em uma planilha?",a:["Deixar os dados mais difíceis de encontrar","Facilitar a consulta, a análise e a atualização","Apagar informações antigas automaticamente","Impedir que os dados sejam compartilhados"],c:1,why:"Uma planilha organizada facilita localizar, comparar, atualizar e analisar informações."},
+{cat:"Tratamento de dados",q:"Antes de analisar uma lista de clientes, você encontra nomes repetidos. O que deve fazer?",a:["Duplicar todos os registros","Ignorar todos os nomes","Verificar e remover duplicatas indevidas","Apagar a lista inteira"],c:2,why:"A identificação de duplicatas evita contagens incorretas e melhora a qualidade dos dados."},
+{cat:"Planilhas",q:"Em uma planilha, o que é uma célula?",a:["O encontro de uma linha com uma coluna","O nome de todo o arquivo","Um tipo de gráfico","Uma página impressa"],c:0,why:"Cada célula é identificada pelo cruzamento de uma coluna e uma linha, como A1."},
+{cat:"Estatística",q:"Uma equipe registrou 6, 8 e 10 peças produzidas. Qual é a média?",a:["6","7","8","10"],c:2,why:"A média é (6 + 8 + 10) ÷ 3 = 8 peças."},
+{cat:"Gráficos",q:"Qual gráfico costuma ser mais indicado para comparar vendas de diferentes produtos?",a:["Gráfico de barras ou colunas","Mapa-múndi","Desenho livre","Fluxograma de pessoas"],c:0,why:"Barras e colunas permitem comparar valores de categorias com facilidade."},
+{cat:"Qualidade dos dados",q:"Uma data aparece como 35/15/2026. Qual problema esse registro apresenta?",a:["Está em ordem alfabética","É um dado inválido","É uma porcentagem","É um dado sigiloso"],c:1,why:"O dia 35 e o mês 15 não formam uma data válida. É preciso corrigir ou confirmar o registro."},
+{cat:"Porcentagem",q:"Uma turma tem 20 alunos e 5 faltaram. Qual porcentagem da turma faltou?",a:["5%","10%","20%","25%"],c:3,why:"5 ÷ 20 × 100 = 25%."},
+{cat:"Relatórios",q:"Para que serve um relatório de dados?",a:["Somente para decorar documentos","Apresentar informações organizadas para apoiar decisões","Substituir todos os funcionários","Esconder resultados"],c:1,why:"Relatórios resumem e apresentam informações para ajudar a entender resultados e tomar decisões."},
+{cat:"Segurança da informação",q:"Qual atitude ajuda a proteger dados pessoais de clientes?",a:["Compartilhar senhas com todos","Publicar a lista de clientes na internet","Permitir acesso apenas a pessoas autorizadas","Usar a mesma senha em todos os sistemas"],c:2,why:"O acesso deve ser controlado e limitado a quem realmente precisa das informações."},
+{cat:"Análise de dados",q:"Uma loja vendeu 30 produtos na segunda e 45 na terça. O que podemos concluir?",a:["As vendas aumentaram 15 produtos","As vendas diminuíram 15 produtos","As vendas foram iguais","Não houve venda"],c:0,why:"45 − 30 = 15. Na terça-feira foram vendidos 15 produtos a mais."}
+];
+const money=[1000,5000,10000,20000,50000,100000,200000,400000,600000,1000000];
+let index=0,earned=0,answered=false,usedFifty=false,usedAudience=false,hidden=[];
+const $=id=>document.getElementById(id);
+const brl=n=>"R$ "+n.toLocaleString("pt-BR");
+function show(id){["start","game","result"].forEach(x=>$(x).classList.toggle("active",x===id))}
+function renderPrizes(){ $("prizes").innerHTML=money.map((m,i)=>`<div class="prize ${i===index?"current":i<index?"passed":""}"><span>Fase ${i+1}</span><b>${brl(m)}</b></div>`).join("");}
+function start(){index=0;earned=0;answered=false;usedFifty=false;usedAudience=false;hidden=[];show("game");renderQuestion()}
+function renderQuestion(){
+ answered=false;hidden=[];const q=questions[index];$("qNum").textContent=`${index+1}/10`;$("currentMoney").textContent=brl(earned);$("bar").style.width=(index/10*100)+"%";$("category").textContent=q.cat.toUpperCase();$("question").textContent=q.q;$("feedback").className="feedback";$("feedback").textContent="Escolha uma alternativa para responder.";$("nextBtn").style.display="none";
+ $("answers").innerHTML=q.a.map((a,i)=>`<button class="answer" data-i="${i}"><span class="letter">${"ABCD"[i]}</span><span>${a}</span></button>`).join("");
+ [...$("answers").querySelectorAll("button")].forEach(b=>b.addEventListener("click",()=>answer(Number(b.dataset.i))));
+ $("fiftyBtn").disabled=usedFifty;$("audienceBtn").disabled=usedAudience;$("quitBtn").disabled=earned===0;renderPrizes();
+}
+function answer(choice){if(answered||hidden.includes(choice))return;answered=true;const q=questions[index];const buttons=[...$("answers").querySelectorAll("button")];buttons.forEach((b,i)=>{b.disabled=true;if(i===q.c)b.classList.add("correct");else if(i===choice)b.classList.add("wrong")});
+ if(choice===q.c){earned=money[index];$("feedback").className="feedback good";$("feedback").textContent="✅ Resposta correta! "+q.why;$("nextBtn").textContent=index===9?"VER RESULTADO 🏆":"PRÓXIMA PERGUNTA →";$("nextBtn").style.display="block";}
+ else{$("feedback").className="feedback bad";$("feedback").textContent="❌ Não foi dessa vez. "+q.why;setTimeout(()=>finish(false),1900);}
+ $("currentMoney").textContent=brl(earned);renderPrizes();
+}
+function next(){if(index===9){finish(true);return}index++;renderQuestion()}
+function finish(won){show("result");$("bar").style.width="100%";$("resultIcon").textContent=won?"🏆":earned>0?"🎉":"📚";$("resultTitle").textContent=won?"VOCÊ É O MILIONÁRIO DOS DADOS!":earned>0?"BOA TENTATIVA!":"FIM DE JOGO";$("resultText").textContent=won?"Você respondeu às 10 perguntas e dominou os desafios de tratamento e gerenciamento de dados!":`Você terminou o desafio. Aproveite para revisar as explicações e tentar novamente. ${earned>0?"Seu último prêmio conquistado foi: "+brl(earned)+".":""}`;$("finalMoney").textContent=brl(earned)}
+$("startBtn").addEventListener("click",start);$("nextBtn").addEventListener("click",next);$("restartBtn").addEventListener("click",()=>show("start"));$("quitBtn").addEventListener("click",()=>finish(false));
+$("fiftyBtn").addEventListener("click",()=>{if(usedFifty||answered)return;usedFifty=true;const q=questions[index],wrong=[0,1,2,3].filter(i=>i!==q.c).sort(()=>Math.random()-.5).slice(0,2);hidden=wrong;[...$("answers").querySelectorAll("button")].forEach((b,i)=>{if(wrong.includes(i)){b.style.visibility="hidden";b.disabled=true}});$("fiftyBtn").disabled=true;$("feedback").textContent="Ajuda 50/50: duas alternativas incorretas foram removidas."});
+$("audienceBtn").addEventListener("click",()=>{if(usedAudience||answered)return;usedAudience=true;const q=questions[index];let votes=[8,8,8,8];votes[q.c]=76;let remaining=24;const wrong=[0,1,2,3].filter(i=>i!==q.c);wrong.forEach((v,i)=>{votes[v]=i===0?12:i===1?8:4});$("feedback").textContent="👥 Opinião da turma (simulação): A "+votes[0]+"% • B "+votes[1]+"% • C "+votes[2]+"% • D "+votes[3]+"%. Use como dica, não como certeza.";$("audienceBtn").disabled=true});
+</script>
+</body>
+</html>
